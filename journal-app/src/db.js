@@ -8,5 +8,6 @@ const app = initializeApp({
 });
 
 const db = getFirestore(app);
+// console.log(db)
 
 export default db;
