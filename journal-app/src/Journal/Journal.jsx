@@ -1,13 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import { collection, getDocs, onSnapshot, query, orderBy, limit } from "firebase/firestore";
+import {doc, collection, getDocs, onSnapshot, query, orderBy, limit, deleteDoc} from "firebase/firestore";
 import db from '../db'
 import {Link} from "react-router-dom";
 import AddJournal from "./AddJournal";
+// import DeleteJournal from "./DeleteJournal";
 
 export default function Journal() {
     const [entries, setEntries] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError]=useState(false)
+
+    const deleteJournal = async (id)=>{
+        // await deleteDoc(doc(db, ))
+        // const entriesRef = collection(db, 'journalEntries')
+        await deleteDoc(doc(db, 'journalEntries', id));
+
+    }
+
 
     useEffect(()=>{
         // getDocs(
@@ -73,6 +82,9 @@ export default function Journal() {
                         <span>
                             <Link to={`/journal/${entry.id}`}>View</Link>>
                         </span>
+                        {/*<DeleteJournal />*/}
+                        <button onClick={()=>deleteJournal(entry.id)}>Delete</button>
+
                         <hr />
                     </div>
                 )
