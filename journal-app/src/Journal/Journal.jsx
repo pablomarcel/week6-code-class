@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { collection, getDocs, onSnapshot } from "firebase/firestore";
 import db from '../db'
 import {Link} from "react-router-dom";
+import AddJournal from "./AddJournal";
 
 export default function Journal() {
     const [entries, setEntries] = useState([])
@@ -59,6 +60,7 @@ export default function Journal() {
     return (
         <div>
             <h1>Journal</h1>
+            <AddJournal />
             {entries.map(entry=>{
                 return(
                     <div key={entry.id}>
