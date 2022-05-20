@@ -4,14 +4,18 @@ import db from "../db";
 import { doc, deleteDoc } from "firebase/firestore";
 
 export default function DeleteJournal(){
-    const deleteJournal= (e)=>{
-        e.preventDefault()
+
+    const deleteJournal = async (id)=>{
+
+        // await deleteDoc(doc(db, ))
+        // const entriesRef = collection(db, 'journalEntries')
+        await deleteDoc(doc(db, 'journalEntries', id));
 
     }
 
     return(
         <div>
-            <button onSubmit={deleteJournal}/>
+            {/*<button onClick={()=>deleteJournal(entry.id)}>Delete</button>*/}
             {/*<h2>Add Journal</h2>*/}
             {/*<form onSubmit={submitFormm}>*/}
             {/*    <label htmlFor="entry-input">Entry</label>*/}

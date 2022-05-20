@@ -11,6 +11,7 @@ export default function Journal() {
     const [error, setError]=useState(false)
 
     const deleteJournal = async (id)=>{
+        // e.prevent
         // await deleteDoc(doc(db, ))
         // const entriesRef = collection(db, 'journalEntries')
         await deleteDoc(doc(db, 'journalEntries', id));

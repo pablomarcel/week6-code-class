@@ -1,21 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import {addDoc, collection, deleteDoc, doc, getDoc} from 'firebase/firestore'
 import db from '../db'
 import DeleteJournal from "./DeleteJournal";
+
+import { useNavigate } from 'react-router'
 
 export default function JournalEntry() {
     const { id } = useParams();
     const [entry, setEntry] = useState({})
     const [loading, setLoading]= useState(true)
     const [error, setError]= useState(false)
+    const navigate = useNavigate();
 
-    const deleteJournal = (id)=>{
+    //useParams hook
+    const onDelete = async ()=>{
+        // e.prevent
         // await deleteDoc(doc(db, ))
-        const entriesRef = collection(db, 'journalEntries')
-        deleteDoc(entriesRef, {
-            id,
-        })
+        // const entriesRef = collection(db, 'journalEntries')
+        await deleteDoc(doc(db, 'journalEntries', id));
+        navigate('/journal')
 
     }
 
@@ -49,8 +53,9 @@ export default function JournalEntry() {
         <div>
             <h1>Journal Entry: {id}</h1>
             {entry.entry}
-            <button onSubmit={deleteJournal(id)}>Delete</button>
+            {/*<button onSubmit={deleteJournal(id)}>Delete</button>*/}
             {/*<DeleteJournal/>*/}
+            <button onClick={onDelete}>Delete</button>
         </div>
     );
 }
