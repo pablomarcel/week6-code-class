@@ -20,7 +20,8 @@ export default function AddJournal(){
         setEntry('')
         const entriesRef = collection(db, 'journalEntries')
         addDoc(entriesRef, {
-            entry
+            entry,
+            createdAt: new Date()
 
         })
 

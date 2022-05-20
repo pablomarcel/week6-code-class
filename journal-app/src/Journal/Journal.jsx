@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, getDocs, onSnapshot, query, orderBy, limit } from "firebase/firestore";
 import db from '../db'
 import {Link} from "react-router-dom";
 import AddJournal from "./AddJournal";
@@ -31,8 +31,13 @@ export default function Journal() {
         //     }
         // )
 
-        const unsubscribe= onSnapshot(
+        const entriesQuery = query(
             collection(db,'journalEntries'),
+            orderBy('createdAt', 'desc')
+        )
+
+        const unsubscribe= onSnapshot(
+            entriesQuery,
             snapshot => {
                 setEntries(snapshot.docs)
                 setLoading(false)
